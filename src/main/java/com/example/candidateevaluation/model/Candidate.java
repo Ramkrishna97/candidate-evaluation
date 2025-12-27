@@ -17,6 +17,12 @@ public class Candidate {
     private int experienceInYears;
     private String designation;
 
+    @Enumerated(EnumType.STRING)
+    private EvaluationStatus evaluationStatus = EvaluationStatus.PENDING;
+
+    public enum EvaluationStatus {
+        PENDING, ASSIGNED, IN_PROGRESS, COMPLETED, REJECTED, SELECTED
+    }
     @Override
     public String toString() {
         return "Candidate{" +
@@ -35,10 +41,8 @@ public class Candidate {
     public Candidate() {
     }
 
-    @Column(name="evaluation_status")
-    private String evaluationStatus;
 
-    public Candidate(long id, String name, String email, String phoneNumber, String skillSet, String location, int experienceInYears, String designation, String evaluationStatus) {
+    public Candidate(long id, String name, String email, String phoneNumber, String skillSet, String location, int experienceInYears, String designation, EvaluationStatus status) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -47,7 +51,7 @@ public class Candidate {
         this.location = location;
         this.experienceInYears = experienceInYears;
         this.designation = designation;
-        this.evaluationStatus = evaluationStatus;
+        this.evaluationStatus = status;
     }
 
     public long getId() {
@@ -114,11 +118,13 @@ public class Candidate {
         this.designation = designation;
     }
 
-    public String getEvaluationStatus() {
+
+    public EvaluationStatus getEvaluationStatus() {
         return evaluationStatus;
     }
 
-    public void setEvaluationStatus(String evaluationStatus) {
+    public void setEvaluationStatus(EvaluationStatus evaluationStatus) {
         this.evaluationStatus = evaluationStatus;
     }
+
 }
