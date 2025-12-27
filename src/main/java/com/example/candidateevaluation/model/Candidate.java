@@ -1,6 +1,11 @@
 package com.example.candidateevaluation.model;
 
 import jakarta.persistence.*;
+import com.example.candidateevaluation.model.Evaluation;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Candidate {
@@ -17,11 +22,42 @@ public class Candidate {
     private int experienceInYears;
     private String designation;
 
-    @Enumerated(EnumType.STRING)
-    private EvaluationStatus evaluationStatus = EvaluationStatus.PENDING;
+        @Enumerated(EnumType.STRING)
+            private EvaluationStatus evaluationStatus = EvaluationStatus.PENDING;
 
-    public enum EvaluationStatus {
-        PENDING, ASSIGNED, IN_PROGRESS, COMPLETED, REJECTED, SELECTED
+        private LocalDateTime createdAt = LocalDateTime.now();
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public List<Evaluation> getEvaluations() {
+        return evaluations;
+    }
+
+    public void setEvaluations(List<Evaluation> evaluations) {
+        this.evaluations = evaluations;
+    }
+
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
+            @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+            private List<Evaluation> evaluations = new ArrayList<>();
+
+            public enum EvaluationStatus {
+            PENDING, ASSIGNED, IN_PROGRESS, COMPLETED, REJECTED, SELECTED
     }
     @Override
     public String toString() {
@@ -41,6 +77,21 @@ public class Candidate {
     public Candidate() {
     }
 
+
+    public Candidate(long id, String name, String email, String phoneNumber, String skillSet, String location, int experienceInYears, String designation, EvaluationStatus evaluationStatus, LocalDateTime createdAt, LocalDateTime updatedAt, List<Evaluation> evaluations) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.skillSet = skillSet;
+        this.location = location;
+        this.experienceInYears = experienceInYears;
+        this.designation = designation;
+        this.evaluationStatus = evaluationStatus;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.evaluations = evaluations;
+    }
 
     public Candidate(long id, String name, String email, String phoneNumber, String skillSet, String location, int experienceInYears, String designation, EvaluationStatus status) {
         this.id = id;
