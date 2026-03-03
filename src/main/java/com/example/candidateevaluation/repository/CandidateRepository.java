@@ -7,11 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
-
     List<Candidate> findByEvaluationStatus(Candidate.EvaluationStatus status);
-
     List<Candidate> findBySkillSetContainingIgnoreCase(String skill);
-
     List<Candidate> findByLocation(String location);
 
     @Query("SELECT c FROM Candidate c WHERE " +
