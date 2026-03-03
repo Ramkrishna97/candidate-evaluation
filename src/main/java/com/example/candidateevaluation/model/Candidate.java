@@ -77,7 +77,6 @@ public class Candidate {
     public Candidate() {
     }
 
-
     public Candidate(long id, String name, String email, String phoneNumber, String skillSet, String location, int experienceInYears, String designation, EvaluationStatus evaluationStatus, LocalDateTime createdAt, LocalDateTime updatedAt, List<Evaluation> evaluations) {
         this.id = id;
         this.name = name;
